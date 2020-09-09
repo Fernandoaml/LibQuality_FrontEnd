@@ -104,6 +104,7 @@ const Repository: React.FC = () => {
       });
       setChartData(dataChart);
     }
+    // eslint-disable-next-line
   }, [issues]);
   return (
     <>

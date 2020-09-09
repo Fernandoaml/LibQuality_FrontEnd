@@ -1,10 +1,10 @@
-import React, { useState, FormEvent, useEffect } from 'react';
-import { FiChevronRight } from 'react-icons/fi';
-import { Link } from 'react-router-dom';
+import React, { useState, FormEvent, useEffect, useCallback } from 'react';
+import { FiChevronRight, FiTrash } from 'react-icons/fi';
+import { Link, useHistory } from 'react-router-dom';
 import api from '../../services/api';
 
 import logoImage from '../../assets/libQualityLogo.svg';
-import { Title, SubTitle, Form, Repositories, Error } from './styles';
+import { Title, SubTitle, Form, Repositories, Error, Header } from './styles';
 
 interface IRepository {
   fullName: string;
@@ -14,6 +14,7 @@ interface IRepository {
 }
 
 const Dashboard: React.FC = () => {
+  const history = useHistory();
   const [newRepo, setNewRepo] = useState('');
   const [inputError, setInputError] = useState('');
   const [repositories, setRepositories] = useState<IRepository[]>(() => {
@@ -32,6 +33,13 @@ const Dashboard: React.FC = () => {
       JSON.stringify(repositories),
     );
   }, [repositories]);
+
+  const clearCache = useCallback(() => {
+    localStorage.clear();
+
+    history.go(0);
+    // eslint-disable-next-line
+  }, []);
 
   async function handleAddRepository(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -54,7 +62,13 @@ const Dashboard: React.FC = () => {
 
   return (
     <>
-      <img src={logoImage} alt="Lib Quality" />
+      <Header>
+        <img src={logoImage} alt="Lib Quality" />
+        <Link to="/" onClick={clearCache}>
+          <FiTrash size={20} />
+          Clear Cache
+        </Link>
+      </Header>
       <Title>LibQuality</Title>
       <SubTitle>
         This is a simple tool to compare quality of diferent open source
