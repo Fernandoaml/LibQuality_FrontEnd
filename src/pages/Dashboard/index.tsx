@@ -70,6 +70,17 @@ const Dashboard: React.FC = () => {
       </Form>
       {inputError && <Error>{inputError}</Error>}
       <Repositories>
+        {/* <Link to="/repository/LibQuality/DashBoard">
+          <img
+            src="https://w7.pngwing.com/pngs/836/323/png-transparent-computer-icons-infinity-symbol-icon-design-symbol-miscellaneous-text-trademark-thumbnail.png"
+            alt="All repositories"
+          />
+          <div>
+            <strong>Dashboard with all Repositories</strong>
+            <p>Click to see all repositories on LibQuality!</p>
+          </div>
+          <FiChevronRight size={20} />
+        </Link> */}
         {repositories.map(repository => (
           <Link
             key={repository.fullName}
@@ -79,9 +90,8 @@ const Dashboard: React.FC = () => {
             <div>
               <strong>{repository.fullName}</strong>
               <p>
+                {'Language: '}
                 {repository.language}
-                {'  ||  '}
-                {repository.htmlURL}
               </p>
             </div>
             <FiChevronRight size={20} />
